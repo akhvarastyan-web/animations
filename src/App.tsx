@@ -1,21 +1,19 @@
-import React from 'react';
 import './App.scss';
-
-interface Props {
-  onClick: () => void;
-  children: React.ReactNode;
-}
-
-export const Provider: React.FC<Props> = React.memo(({ onClick, children }) => (
-  <button type="button" onClick={onClick}>
-    {children}
-  </button>
-));
+import React, { useState } from 'react';
+import { Header } from './components/Header/Header';
+//import { CardAnimation } from './components/ScrollAnimation';
+import { BallAnimation } from './components/Ball/BallAnimation';
 
 export const App: React.FC = () => {
+  const [activeAnimation, setActiveAnimation] = useState<string>('scroll');
+
   return (
-    <div className="starter">
-      <Provider onClick={() => ({})}>TodoList</Provider>
+    <div className="app-container">
+      <Header current={activeAnimation} onSelect={setActiveAnimation} />
+
+      <main className="content">
+        {activeAnimation === 'ball' && <BallAnimation />}
+      </main>
     </div>
   );
 };
